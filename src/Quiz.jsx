@@ -6,27 +6,28 @@ const APIUrl = "https://opentdb.com/api.php?amount=1&category=18&type=multiple";
 function Quiz() {
     const [questions, setQuestions] = useState({});
     const [rating, setRating] = useState(1000);
-    const [timeLeft, setTimeLeft] = useState(30);
     const [renderedQuestion, setRenderedQuestion] = useState(null);
+    const [disabled, setDisabled] = useState(false);
 
     async function getQuestion() {
-        const response = await fetch(APIUrl);
-        const data = await response.json();
-        const {
-            question,
-            correct_answer: correct,
-            incorrect_answers: incorrect,
-        } = data.results[0];
-        setQuestions({
-            question,
-            correct,
-            incorrect,
-        });
+        try {
+            const response = await fetch(APIUrl);
+            const data = await response.json();
+            const {
+                question,
+                correct_answer: correct,
+                incorrect_answers: incorrect,
+            } = data.results[0];
+            setQuestions({
+                question,
+                correct,
+                incorrect,
+            });
+        } catch (error) {
+            await new Promise((resolve) => setTimeout(resolve, 4000));
+            await getQuestion();
+        }
     }
-
-    useEffect(() => {
-        getQuestion();
-    }, []);
 
     useEffect(() => {
         if (questions.question) {
@@ -36,10 +37,21 @@ function Quiz() {
                     question={questions.question}
                     correct={questions.correct}
                     incorrect={questions.incorrect}
+                    handleAnswer={handleAnswer}
+                    disabled={disabled}
                 />
             );
         }
-    }, [questions]);
+    }, [questions, disabled]);
+
+    function handleAnswer(isCorrect) {
+        setDisabled(!disabled);
+        if (isCorrect) {
+            handleCorrect();
+        } else {
+            handleIncorrect();
+        }
+    }
 
     function handleCorrect() {
         setRating(
@@ -55,18 +67,19 @@ function Quiz() {
         nextQuestion();
     }
 
-    function nextQuestion() {
-        getQuestion();
+    async function nextQuestion() {
+        await getQuestion();
+        setDisabled(false);
     }
-
+    useEffect(() => {
+        getQuestion();
+    }, []);
     return (
-        <div>
+        <div className="flex flex-col items-center justify-center w-screen h-screen gap-10 text-center text-white">
+            <h1 className="text-2xl font-bold">Quiz App</h1>
             <p>Rating: {rating}</p>
             {renderedQuestion ? (
-                <div>
-                    <p>Question:</p>
-                    {renderedQuestion}
-                </div>
+                <div>{renderedQuestion}</div>
             ) : (
                 <p>Loading...</p>
             )}
