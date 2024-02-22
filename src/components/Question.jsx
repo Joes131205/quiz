@@ -20,7 +20,7 @@ function Question({
         </button>
     ));
     return (
-        <div className="gap-10 flex flex-col bg-fern_green-800 w-[90%] py-10 md:h-auto md:w-auto md:px-10 md:py-10 rounded-2xl font-bold">
+        <div className="gap-10 flex flex-col items-center justify-center bg-fern_green-800 w-[90%] py-10 md:h-auto md:w-auto md:px-10 md:py-10 rounded-2xl font-bold">
             <h2>{decode(question)}</h2>
             <div className="options flex flex-col md:flex-row gap-10 md:gap-20 items-center justify-center">
                 {options}

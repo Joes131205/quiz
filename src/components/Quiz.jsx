@@ -92,11 +92,11 @@ function Quiz() {
     }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center w-screen h-screen gap-8 text-center text-white select-none">
-            <h1 className="text-5xl font-bold">
+        <div className="flex flex-col items-center justify-center w-screen h-screen gap-2 md:gap-8 text-center text-white select-none ">
+            <h1 className="text-2xl md:text-5xl font-bold px-2">
                 The Computer Quiz Of All Time
             </h1>
-            <p className="text-2xl">
+            <p className="text-2xl px-2">
                 Your Rating:{" "}
                 <span
                     className={`font-bold ${
@@ -115,10 +115,16 @@ function Quiz() {
                         : `( -${points} )`
                     : ""}
             </p>
-            <p>Correct = Your Rating + Random rating between 1 - 100</p>
-            <p>Incorrect = Your Rating - Random rating between 1 - 50</p>
+            <p className="text-xs md:text-lg px-2">
+                Correct = Your Rating + Random rating between 1 - 100
+            </p>
+            <p className="text-xs md:text-lg px-2">
+                Incorrect = Your Rating - Random rating between 1 - 50
+            </p>
             {renderedQuestion ? (
-                <div>{renderedQuestion}</div>
+                <div className="flex flex-col items-center justify-center">
+                    {renderedQuestion}
+                </div>
             ) : (
                 <p>Loading...</p>
             )}
