@@ -16,6 +16,9 @@ export default {
                     900: "#121a11",
                 },
             },
+            fontFamily: {
+                anta: ["Anta", "sans-serif"],
+            },
         },
     },
     plugins: [],
