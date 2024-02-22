@@ -67,14 +67,12 @@ function Quiz() {
 
     function handleCorrect() {
         setRating((prevScore) => prevScore + 5);
-        setPoints(currPoints);
         setIsCorrect(true);
         nextQuestion();
     }
 
     function handleIncorrect() {
         setRating((prevScore) => prevScore - 5);
-        setPoints(currPoints);
         setIsCorrect(false);
         nextQuestion();
     }
@@ -109,8 +107,8 @@ function Quiz() {
                 </span>
                 {isCorrect !== null
                     ? isCorrect === true
-                        ? `( +${points} )`
-                        : `( -${points} )`
+                        ? `( + 5 )`
+                        : `( - 5 )`
                     : ""}
             </p>
             <p className="text-xs md:text-lg px-2">Correct = Your Rating + 5</p>
