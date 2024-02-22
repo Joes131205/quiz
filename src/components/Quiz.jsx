@@ -66,16 +66,14 @@ function Quiz() {
     }
 
     function handleCorrect() {
-        const currPoints = Math.floor(Math.random() * 100) + 1;
-        setRating((prevScore) => prevScore + currPoints);
+        setRating((prevScore) => prevScore + 5);
         setPoints(currPoints);
         setIsCorrect(true);
         nextQuestion();
     }
 
     function handleIncorrect() {
-        const currPoints = Math.floor(Math.random() * 50) + 1;
-        setRating((prevScore) => prevScore - currPoints);
+        setRating((prevScore) => prevScore - 5);
         setPoints(currPoints);
         setIsCorrect(false);
         nextQuestion();
@@ -115,11 +113,9 @@ function Quiz() {
                         : `( -${points} )`
                     : ""}
             </p>
+            <p className="text-xs md:text-lg px-2">Correct = Your Rating + 5</p>
             <p className="text-xs md:text-lg px-2">
-                Correct = Your Rating + Random rating between 1 - 100
-            </p>
-            <p className="text-xs md:text-lg px-2">
-                Incorrect = Your Rating - Random rating between 1 - 50
+                Incorrect = Your Rating - 5
             </p>
             {renderedQuestion ? (
                 <div className="flex flex-col items-center justify-center">
